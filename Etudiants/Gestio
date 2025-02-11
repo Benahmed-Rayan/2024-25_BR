@@ -1,0 +1,54 @@
+package Etudiants;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Gestiontudiant {
+    private ArrayList<Etudiant> etudiants = new ArrayList<>();
+    private Scanner scanner = new Scanner(System.in);
+
+    public void affiche() {
+        if (etudiants.isEmpty()) {
+            System.out.println("Aucun étudiant enregistré.");
+        } else {
+            for (Etudiant e : etudiants) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void ajoute() {
+        System.out.println("Ajouter un étudiant");
+        System.out.print("Nom : ");
+        String nom = scanner.next();
+        System.out.print("Prénom : ");
+        String prenom = scanner.next();
+        System.out.print("Classe : ");
+        String classe = scanner.next();
+        
+        etudiants.add(new Etudiant(nom, prenom, classe));
+        System.out.println("Étudiant ajouté avec succès !");
+    }
+
+    public void supprime() {
+        if (etudiants.isEmpty()) {
+            System.out.println("Aucun étudiant à supprimer.");
+            return;
+        }
+
+        System.out.println("Liste des étudiants : ");
+        for (int i = 0; i < etudiants.size(); i++) {
+            System.out.println((i + 1) + ". " + etudiants.get(i));
+        }
+
+        System.out.print("Entrez le numéro de l'étudiant à supprimer : ");
+        int index = scanner.nextInt();
+
+        if (index > 0 && index <= etudiants.size()) {
+            etudiants.remove(index - 1);
+            System.out.println("Étudiant supprimé avec succès !");
+        } else {
+            System.out.println("Numéro invalide.");
+        }
+    }
+}
