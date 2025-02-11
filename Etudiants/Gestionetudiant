@@ -3,7 +3,7 @@ package Etudiants;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Gestiontudiant {
+public class Gestionetudiant {
     private ArrayList<Etudiant> etudiants = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
 
