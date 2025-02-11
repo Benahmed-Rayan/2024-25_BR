@@ -1,5 +1,10 @@
 package suite;
 
-interface Transport {
-    void deplacer();
+public class voiture implements Transport {
+
+    @Override
+    public void deplacer(){
+        System.out.println("la voiture roule");
+    }
+
 }
