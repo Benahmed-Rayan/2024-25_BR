@@ -1,30 +1,36 @@
+package com.monprojet;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class App {
-    public static void main(String[] args) {
-        // Informations de connexion
-        String url = "jdbc:mysql://localhost:3306/mabasegr2"; // Remplacer "maBase" par le nom de votre base
-        String utilisateur = "root";
-        String motDePasse = "password";
-        Connection connexion = null;
+public class Connexion {
+    private static final String URL = "jdbc:mysql://localhost:3306/mabasegr1";
+    private static final String UTILISATEUR = "root";
+    private static final String MOT_DE_PASSE = "root";
+    private Connection connexion = null;
 
+    public Connexion() {
         try {
-            connexion = DriverManager.getConnection(url, utilisateur, motDePasse);
-            System.out.println("Connexion réussie !");
-            
-        } catch (SQLException e) {
-            System.out.println("Erreur de connexion : " + e.getMessage());
-        } finally { 
-	        if (connexion != null) { 
-		        try { 
-			        connexion.close(); 
-			        System.out.println("Connexion fermée avec succès."); 
-			    } catch (SQLException e) { 
-				    System.err.println("Erreur lors de la fermeture de la connexion : " + e.getMessage()); 
-				} 
-			} 
-		}
+            this.connexion = DriverManager.getConnection(URL, UTILISATEUR, MOT_DE_PASSE);
+            System.out.println("Connexion établie avec succès !");
+        } catch (SQLException ex) {
+            System.err.println("Erreur de connexion à la base de données : " + ex.getMessage());
+        }
+    }
+
+    public Connection getConnexion() {
+        return this.connexion;
+    }
+
+    public void fermer() {
+        if (this.connexion != null) {
+            try {
+                this.connexion.close();
+                System.out.println("Connexion fermée correctement.");
+            } catch (SQLException ex) {
+                System.err.println("Problème lors de la fermeture de la connexion : " + ex.getMessage());
+            }
+        }
     }
 }
