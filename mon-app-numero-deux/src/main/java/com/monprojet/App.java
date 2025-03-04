@@ -14,6 +14,10 @@ public class App {
         do {
             System.out.println("\nMenu Principal :");
             System.out.println("1 - Ajouter un utilisateur");
+            System.out.println("2 - Lister les utilisateurs");
+            System.out.println("3 - Supprimer un utilisateur");
+            System.out.println("4 - Modifier un utilisateur");
+            System.out.println("5 - Rechercher un utilisateur");
             System.out.println("0 - Quitter");
             System.out.print("Votre choix : ");
             
@@ -28,6 +32,18 @@ public class App {
                 case 1:
                     gestionUtilisateur.ajouterUtilisateur(connexion, scanner);
                     break;
+                case 2:
+                    gestionUtilisateur.listerUtilisateurs(connexion);
+                    break;
+                case 3:
+                    gestionUtilisateur.supprimerUtilisateur(connexion, scanner);
+                    break;
+                case 4:
+                    gestionUtilisateur.modifierUtilisateur(connexion, scanner);
+                    break;
+                case 5:
+                    gestionUtilisateur.rechercherUtilisateur(connexion, scanner);
+                    break;
                 case 0:
                     System.out.println("Fermeture de l'application...");
                     break;
@@ -37,7 +53,8 @@ public class App {
             }
         } while (choix != 0);
 
-        connexion.fermer();
+        // Fermer la connexion uniquement lorsque l'utilisateur choisit de quitter
+        connexion.fermer(); // Fermeture de la connexion
         scanner.close();
         System.out.println("Application terminée.");
         System.exit(0);

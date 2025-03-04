@@ -1,15 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>com.monprojet</groupId>
   <artifactId>mon-app-numero-deux</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>mon-app-numero-deux</name>
   <url>http://maven.apache.org</url>
+
+  <!-- Section des plugins Maven -->
   <build>
     <plugins>
-        <!-- Maven Shade Plugin -->
+        <!-- Maven Shade Plugin pour créer un jar exécutable -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
@@ -32,18 +35,30 @@
             </executions>
         </plugin>
     </plugins>
-</build>
+  </build>
+
+  <!-- Dépendances de ton projet -->
   <dependencies>
+    <!-- Dépendance pour les tests avec JUnit -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    
+    <!-- Dépendance MySQL JDBC pour la connexion à la base de données -->
     <dependency>
-      <groupId>com.mysql</groupId>
-      <artifactId>mysql-connector-j</artifactId>
-      <version>8.0.33</version>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version> <!-- Utilise la dernière version stable disponible -->
     </dependency>
-</dependencies>
+
+    <!-- Dépendance pour l'exécution du code à partir du terminal (si besoin) -->
+    <dependency>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+  </dependencies>
 </project>
