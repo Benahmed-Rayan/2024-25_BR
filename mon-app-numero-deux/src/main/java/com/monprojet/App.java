@@ -53,8 +53,8 @@ public class App {
             }
         } while (choix != 0);
 
-        // Fermer la connexion uniquement lorsque l'utilisateur choisit de quitter
-        connexion.fermer(); // Fermeture de la connexion
+        // Ferme la connexion uniquement qnd l'user choisi de quitter
+        connexion.fermer();
         scanner.close();
         System.out.println("Application terminée.");
         System.exit(0);

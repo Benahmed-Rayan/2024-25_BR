@@ -18,7 +18,7 @@ public class GestionUtilisateur {
         }
     }
 
-    // Ajouter un utilisateur avec la connexion ouverte
+
     public void ajouterUtilisateur(Connexion connexion, Scanner scanner) {
         if (connexion.getConnexion() == null) {
             System.err.println("Impossible d'ajouter un utilisateur : connexion à la base de données non établie.");
@@ -53,7 +53,6 @@ public class GestionUtilisateur {
         }
     }
 
-    // Lister tous les utilisateurs
     public void listerUtilisateurs(Connexion connexion) {
         try (PreparedStatement statement = connexion.getConnexion().prepareStatement("SELECT * FROM utilisateurs");
              ResultSet resultSet = statement.executeQuery()) {
@@ -72,7 +71,6 @@ public class GestionUtilisateur {
         }
     }
 
-    // Supprimer un utilisateur
     public void supprimerUtilisateur(Connexion connexion, Scanner scanner) {
         System.out.print("Entrez l'ID de l'utilisateur à supprimer : ");
         int id = scanner.nextInt();
@@ -80,7 +78,7 @@ public class GestionUtilisateur {
         executeUpdate(connexion, "DELETE FROM utilisateurs WHERE id = ?", id);
     }
 
-    // Modifier un utilisateur
+
     public void modifierUtilisateur(Connexion connexion, Scanner scanner) {
         System.out.print("Entrez l'ID de l'utilisateur à modifier : ");
         int id = scanner.nextInt();
@@ -97,7 +95,6 @@ public class GestionUtilisateur {
         executeUpdate(connexion, requete, prenom, nom, email, id);
     }
 
-    // Rechercher un utilisateur
     public void rechercherUtilisateur(Connexion connexion, Scanner scanner) {
         System.out.print("Entrez l'email (ou vide pour ignorer) : ");
         String email = scanner.nextLine().trim();
