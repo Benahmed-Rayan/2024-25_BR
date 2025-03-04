@@ -2,10 +2,13 @@ package com.monprojet;
 
 import java.sql.*;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 
 public class GestionUtilisateur {
 
-    // Modifié pour ne pas fermer la connexion ici, mais la laisser ouverte
     private void executeUpdate(Connexion connexion, String requete, Object... params) {
         try (PreparedStatement statement = connexion.getConnexion().prepareStatement(requete)) {
             for (int i = 0; i < params.length; i++) {
@@ -31,11 +34,12 @@ public class GestionUtilisateur {
         System.out.print("Prénom : ");
         String prenom = scanner.nextLine().trim();
 
-        System.out.print("Email : ");
+        System.out.print("mail : ");
         String email = scanner.nextLine().trim();
 
+        // Vérif si vide
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty()) {
-            System.out.println("Les champs ne peuvent pas être vides. Veuillez réessayer.");
+            System.out.println("Les champs ne peuvent pas être vides. Reessayez.");
             return;
         }
 
@@ -47,9 +51,9 @@ public class GestionUtilisateur {
             statement.setString(3, email);
 
             int lignesModifiees = statement.executeUpdate();
-            System.out.println("Utilisateur ajouté avec succès ! Lignes affectées : " + lignesModifiees);
+            System.out.println("Utilisateur ajté avec succès !" + lignesModifiees);
         } catch (SQLException ex) {
-            System.err.println("Erreur lors de l'insertion de l'utilisateur : " + ex.getMessage());
+            System.err.println("Erreur d'ajout utilisateur" + ex.getMessage());
         }
     }
 
@@ -74,7 +78,7 @@ public class GestionUtilisateur {
     public void supprimerUtilisateur(Connexion connexion, Scanner scanner) {
         System.out.print("Entrez l'ID de l'utilisateur à supprimer : ");
         int id = scanner.nextInt();
-        scanner.nextLine();  // Clear buffer
+        scanner.nextLine(); 
         executeUpdate(connexion, "DELETE FROM utilisateurs WHERE id = ?", id);
     }
 
@@ -84,21 +88,29 @@ public class GestionUtilisateur {
         int id = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.print("Nouveau prénom : ");
+        System.out.print("Nouveau prénom (sinon remmettre l'ancien) : ");
         String prenom = scanner.nextLine().trim();
-        System.out.print("Nouveau nom : ");
+
+        System.out.print("Nouveau nom (sinon remmettre l'ancien) : ");
         String nom = scanner.nextLine().trim();
-        System.out.print("Nouvel email : ");
+
+        System.out.print("Nouvel email (sinon remmettre l'ancien) : ");
         String email = scanner.nextLine().trim();
+
+        // Vérif de si le champ est vide
+        if (prenom.isEmpty() || nom.isEmpty() || email.isEmpty()) {
+            System.out.println("Les champs ne peuvent pas être vides. Veuillez réessayer.");
+            return;
+        }
 
         String requete = "UPDATE utilisateurs SET prenom = ?, nom = ?, email = ? WHERE id = ?";
         executeUpdate(connexion, requete, prenom, nom, email, id);
     }
 
     public void rechercherUtilisateur(Connexion connexion, Scanner scanner) {
-        System.out.print("Entrez l'email (ou vide pour ignorer) : ");
+        System.out.print("Entrez l'mail (ou vide pour ignore) : ");
         String email = scanner.nextLine().trim();
-        System.out.print("Entrez le nom (ou vide pour ignorer) : ");
+        System.out.print("Entrez le nom (ou vide pour ignore) : ");
         String nom = scanner.nextLine().trim();
 
         StringBuilder requete = new StringBuilder("SELECT * FROM utilisateurs WHERE 1=1");
@@ -129,4 +141,37 @@ public class GestionUtilisateur {
             System.err.println("Erreur lors de la recherche : " + ex.getMessage());
         }
     }
+
+
+    public void exporterUtilisateursCSV(Connexion connexion) {
+        String fichierCSV = "utilisateurs.csv"; // Nom du fichier CSV
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fichierCSV))) {
+            // Ecrire l'en-tête du fichier CSV
+            writer.println("ID,Prénom,Nom,Email");
+
+            // Récupérer les utilisateurs de la base de données
+            String requete = "SELECT * FROM utilisateurs";
+            try (PreparedStatement statement = connexion.getConnexion().prepareStatement(requete);
+                 ResultSet resultSet = statement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    // Récupérer les informations de chaque utilisateur
+                    int id = resultSet.getInt("id");
+                    String prenom = resultSet.getString("prenom");
+                    String nom = resultSet.getString("nom");
+                    String email = resultSet.getString("email");
+
+                    // Ecrire les informations dans le fichier CSV
+                    writer.printf("%d,%s,%s,%s%n", id, prenom, nom, email);
+                }
+            }
+            System.out.println("Les utilisateurs ont été exportés dans le fichier : " + fichierCSV);
+        } catch (SQLException | IOException ex) {
+            System.err.println("Erreur lors de l'exportation des utilisateurs : " + ex.getMessage());
+        }
+    }
+
+
+
 }
+

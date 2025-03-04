@@ -18,6 +18,7 @@ public class App {
             System.out.println("3 - Supprimer un utilisateur");
             System.out.println("4 - Modifier un utilisateur");
             System.out.println("5 - Rechercher un utilisateur");
+            System.out.println("6 - Exporter les utilisateurs vers CSV");
             System.out.println("0 - Quitter");
             System.out.print("Votre choix : ");
             
@@ -44,6 +45,9 @@ public class App {
                 case 5:
                     gestionUtilisateur.rechercherUtilisateur(connexion, scanner);
                     break;
+                case 6:
+                    gestionUtilisateur.exporterUtilisateursCSV(connexion);
+                    break;
                 case 0:
                     System.out.println("Fermeture de l'application...");
                     break;
@@ -53,8 +57,7 @@ public class App {
             }
         } while (choix != 0);
 
-        // Ferme la connexion uniquement qnd l'user choisi de quitter
-        connexion.fermer();
+        connexion.fermer(); 
         scanner.close();
         System.out.println("Application terminée.");
         System.exit(0);
