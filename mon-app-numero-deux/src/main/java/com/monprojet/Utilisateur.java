@@ -51,3 +51,4 @@ public class Utilisateur {
         return "Utilisateur [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", email=" + email + "]";
     }
 }
+ 

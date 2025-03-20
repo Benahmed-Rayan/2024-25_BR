@@ -1,0 +1,11 @@
+.root {
+    -fx-background-image: url('/images/background.jpg'); 
+    -fx-background-size: cover; 
+    -fx-background-position: center; 
+    -fx-background-repeat: no-repeat; 
+}
+
+.label {
+    -fx-text-fill: blue;
+    -fx-font-size: 16px;
+}

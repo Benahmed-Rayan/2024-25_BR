@@ -1,12 +1,30 @@
-public class main1 {
+import java.util.Scanner;
 
-    public static void main(String[] args){
-        voiture1 voiture = new voiture("toyota", "corola", "rouge");
-        
-        voiture.affiche();
+public class Main1 {
+    public static void main(String[] args) {
+        // Demande des infos à l'utilisateur
+        Scanner scanner = new Scanner(System.in); // Création de l'objet Scanner
+        System.out.print("Entrez la couleur : ");
+        String couleur = scanner.nextLine();
+        scanner.close(); // Fermeture du scanner
 
-        voiture.demarrer();
-    } 
+        boolean found = false;
+        for(String color : Voiture.colorAutorized) {
+            if (color.equals(couleur)) {
+                found = true;
+                break;
+            }
+        }
 
-
+        if (found) {
+            // Création de la voiture
+            Voiture voiture = new Voiture("Toyota", "Corolla", "Rouge");
+            
+            // Affichage des infos de la voiture
+            System.out.println(voiture.getMarque() + " " + voiture.getModele() + " " + voiture.getCouleur());
+        } else {
+            System.out.println("Erreur dans le choix de la couleur !");
+            System.exit(1);
+        }
+    }
 }

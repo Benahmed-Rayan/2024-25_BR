@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.projet.controllers.UtilisateurController"
+      stylesheets="@../css/main_view.css"
+      spacing="10" alignment="CENTER">
+
+    <!-- Titre de la fenêtre -->
+    <Label text="Gestion des Utilisateurs"/>
+
+    <!-- Barre de recherche -->
+    <HBox spacing="10" alignment="CENTER">
+        <ChoiceBox fx:id="choiceCritere"/>
+        <TextField fx:id="inputRecherche" promptText="Rechercher..."/>
+        <Button text="Rechercher" fx:id="btnRechercher"/>
+    </HBox>
+
+    <!-- TableView pour afficher les utilisateurs -->
+    <TableView fx:id="tableUtilisateurs">
+        <columns>
+            <TableColumn text="ID" fx:id="colId"/>
+            <TableColumn text="Prénom" fx:id="colPrenom"/>
+            <TableColumn text="Nom" fx:id="colNom"/>
+            <TableColumn text="Email" fx:id="colEmail"/>
+            <TableColumn text="Créé le" fx:id="colCreatedAt"/>
+            <TableColumn text="Mis à jour le" fx:id="colUpdatedAt"/>
+            <TableColumn text="Actions" fx:id="colActions"/>
+        </columns>
+    </TableView>
+
+    <!-- Boutons d'actions -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Actualiser" fx:id="btnActualiser"/>
+        <Button text="Ajouter" fx:id="btnAjouter"/>
+        <Button text="Historique" fx:id="btnHistorique"/>
+        <Button text="Exporter en CSV" fx:id="btnExporterCsv"/> <!-- Bouton ajouté pour l'export CSV -->
+    </HBox>
+</VBox>

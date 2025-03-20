@@ -1,0 +1,7 @@
+.table-view {
+    -fx-background-color: #f4f4f4;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+}

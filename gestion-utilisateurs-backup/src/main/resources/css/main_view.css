@@ -1,0 +1,14 @@
+.vbox {
+    -fx-background-color: #000000;
+}
+
+.label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color: #09f2c7;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-weight: bold;
+}
